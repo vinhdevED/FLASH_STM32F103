@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "FLASH_OP.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,6 +55,16 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+char *data = "Hello FLASH from TDV";
+
+uint32_t data2[] = {0x1,0x2,0x3,0x4,0x5,0x6,0x7,0x8,0x9};
+
+uint32_t Rx_Data[30];
+
+char string[100];
+int number =123;
+float val = 123.456;
+float RxVal;
 
 /* USER CODE END 0 */
 
@@ -86,6 +97,13 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  Flash_Write_Data(0x08004410, (uint32_t *)data2, 9);
+  Flash_Read_Data(0x08004410, Rx_Data, 10);
+
+  int numofwords = (strlen(data)/4) + ((strlen(data)%4)!=0);
+  Flash_Write_Data(0x08004810,(uint32_t *)data , numofwords);
+  Flash_Read_Data(0x08004810, Rx_Data, numberofwords);
+  Convert_To_Str(Rx_Data, string);
 
   /* USER CODE END 2 */
 

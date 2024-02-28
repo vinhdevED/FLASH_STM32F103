@@ -13,10 +13,15 @@
 /* STM32F103 have 128 PAGES (Page 0 to Page 127) of 1 KB each.
  * This makes up 128 KB Flash Memory
  * FLASH_PAGE_SIZE should be able to get the size of the Page according to the controller
+ * Address Memory usually use unsigned 32 bit integer
  */
 
 static uint32_t GetPage(uint32_t address){
 	for(int idx = 0;idx <128;idx ++){
+		/* Page Boundary Check
+		 * Starting Address of FLASH MEMORY - 0x0800 0000
+		 * Check current data in range of
+		 */
 		if( (address <(0x08000000 + FLASH_PAGE_SIZE*(idx+1)) ) && (address >= (0x08000000 + FLASH_PAGE_SIZE*idx))){
 			return (0x0800000 + FLASH_PAGE_SIZE*idx);
 		}
