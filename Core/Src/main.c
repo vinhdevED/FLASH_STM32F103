@@ -102,8 +102,14 @@ int main(void)
 
   int numofwords = (strlen(data)/4) + ((strlen(data)%4)!=0);
   Flash_Write_Data(0x08004810,(uint32_t *)data , numofwords);
-  Flash_Read_Data(0x08004810, Rx_Data, numberofwords);
+  Flash_Read_Data(0x08004810, Rx_Data, numofwords);
   Convert_To_Str(Rx_Data, string);
+
+  Flash_Write_NUM(0x08005C10, number);
+  RxVal = Flash_Read_NUM(0x08005C10);
+
+  Flash_Write_NUM(0x08012000, val);
+  RxVal = Flash_Read_NUM(0x08012000);
 
   /* USER CODE END 2 */
 
