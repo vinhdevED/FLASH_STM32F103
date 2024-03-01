@@ -25,7 +25,7 @@ Before writing data to flash memory, you need to initialize the flash interface 
    ```
    > Here, you define the number of pages to be erased.  The calculation determines how many pages are between _StartPage_ and _EndPage_. **FLASH_PAGE_SIZE** represents the size of one page in bytes.
    
-   > For example, if StartPage is 0x08010000 and EndPage is 0x0801FFFF, and FLASH_PAGE_SIZE is 2048 bytes, the number of pages to be erased would be ((0x0801FFFF - 0x08010000)/2048) + 1 = 64.
+   > For example, if StartPage is 0x08010000 and EndPage is 0x0801FFFF, and FLASH_PAGE_SIZE is 1024 bytes, the number of pages to be erased would be ((0x0801FFFF - 0x08010000)/1024) + 1 = 64.
 ### 📰 Read Data in Flash ###
 
 
