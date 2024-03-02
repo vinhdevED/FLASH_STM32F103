@@ -8,24 +8,32 @@ As we can see in the picture below, Flash memory is organized as a main block of
 
 ## 📊 Analysis and Explain  ##
 ### 🖋️ Write Data in Flash ###
-Before writing data to flash memory, you need to initialize the flash interface and unlock with **HAL_FLASH_Unlock()** function. After that, you must erase the flash page where your data is stored. Erasing is typically done at the beginning and then you can proceed to write the new data. Next, modifying the erase init structure is very important because of suitable project. Some specific structure following below:
-1. Type Erase
+Before writing data to flash memory, you need to initialize the flash interface and unlock with `HAL_FLASH_Unlock()` function. After that, you must erase the flash page where your data is stored. Erasing is typically done at the beginning and then you can proceed to write the new data. Next, modifying the erase init structure is very important because of suitable project. Some specific structure following below:
+* Type Erase
    ```
    EraseInitStruct.TypeErase = FLASH_TYPEERASE_PAGES
    ```
    > The flash memory is divided into pages, and erasing is often done at the page level.
-2. Page Address
+* Page Address
    ```
    EraseInitStruct.PageAddress = StartPage
    ```
    > The variable StartPage likely holds the address of the first page you want to erase.
-3. NbPage( Number of Page )
+* NbPage( Number of Page )
    ```
    EraseInitStruct.NbPages = ((EndPage - StartPage)/FLASH_PAGE_SIZE) + 1
    ```
-   > Here, you define the number of pages to be erased.  The calculation determines how many pages are between _StartPage_ and _EndPage_. **FLASH_PAGE_SIZE** represents the size of one page in bytes.
+   > Here, you define the number of pages to be erased.  The calculation determines how many pages are between _StartPage_ and _EndPage_. `FLASH_PAGE_SIZE` represents the size of one page in bytes.
    
-   > For example, if StartPage is 0x08010000 and EndPage is 0x0801FFFF, and FLASH_PAGE_SIZE is 1024 bytes, the number of pages to be erased would be ((0x0801FFFF - 0x08010000)/1024) + 1 = 64.
+   > For example, if StartPage is 0x08010000 and EndPage is 0x0801FFFF, and FLASH_PAGE_SIZE is 1024 bytes, the number of pages to be erased would be `((0x0801FFFF - 0x08010000)/1024) + 1 = 64`
+
+Some specific of this structure is then likely passed to the `HAL_FLASHEx_Erase(EraseInitStruct,.....)` function to perform the actual ensure. Now, you can write your data which can use for/while loop thourgh each words by numberofword. As line code below, it uses type of word and add for 4 after looping because 1 word = 4 bytes (32-bits). So, it need move 4 address to the next suitable place to write data:
+```
+HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, StartPageAddress, Data[sofar]);
+StartPageAddress += 4;  
+sofar++;
+```
+After successfully writing the data, we need to lock the flash memory to avoid unusual accesses.
 ### 📰 Read Data in Flash ###
 
 
