@@ -35,6 +35,10 @@ sofar++;
 ```
 After successfully writing the data, we need to lock the flash memory to avoid unusual accesses.
 ### 📰 Read Data in Flash ###
-
-
+To read data from flash memory, you simply need to access the memory location where your data is stored. RxBuf is the bucket which is the address 32 bit address and  stores the data. You need to know the number of word to read from flash. 
+```
+*RxBuf = *(__IO uint32_t *)StartPageAddress;
+```
 ## Result ##
+
+![Image](https://i.postimg.cc/QMVBzP25/7e85f2ed-afa1-4a11-b058-c3e5f3d72324.jpg)
