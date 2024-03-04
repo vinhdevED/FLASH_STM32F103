@@ -45,6 +45,6 @@ In this project, we use STM32CubeIDE to interact with Flash Memory Information.
 
 ![Image](https://i.postimg.cc/QMVBzP25/7e85f2ed-afa1-4a11-b058-c3e5f3d72324.jpg)
 
-+ In picture 2, using feature Memory to observe any flash address and tradition style of hex.
++ In picture 2, using feature Memory to observe any flash address and tradition style of hex. I choose 0x08004810 address for starting position and writing data string text.
 
 ![Image](https://i.postimg.cc/fbV0gLpD/0ac1576f-b75f-49aa-80bf-45315985c842.jpg)
